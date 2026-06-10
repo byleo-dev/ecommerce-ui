@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aurea — Luxury Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#fdf8f6;
+  --bg2:#f7f0f5;
+  --ink:#1a0f1e;
+  --ink2:#2d1f33;
+  --muted:#9b8fa3;
+  --border:#e8dde8;
+  --purple:#7c3aed;
+  --purple2:#6d28d9;
+  --pink:#ec4899;
+  --pink2:#db2777;
+  --grad:linear-gradient(135deg,#7c3aed,#ec4899);
+  --grad2:linear-gradient(135deg,#6d28d9,#db2777);
+  --serif:'Bodoni Moda',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);overflow-x:hidden;}
+
+/* TOPBAR */
+.topbar{
+  background:var(--grad);
+  padding:10px 60px;text-align:center;
+  font-size:.65rem;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 60px;
+  border-bottom:1px solid var(--border);
+  background:var(--bg);
+  position:sticky;top:0;z-index:100;
+}
+.nav-logo{
+  font-family:var(--serif);
+  font-size:1.8rem;font-weight:400;
+  letter-spacing:8px;text-transform:uppercase;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;text-decoration:none;
+}
+.nav-center{display:flex;gap:36px;}
+.nav-center a{
+  font-size:.7rem;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .2s;font-weight:400;
+}
+.nav-center a:hover{color:var(--purple);}
+.nav-right{display:flex;align-items:center;gap:18px;}
+.nav-icon{background:none;border:none;cursor:pointer;color:var(--ink);position:relative;padding:4px;}
+.nav-icon:hover{color:var(--purple);}
+.cart-count{
+  position:absolute;top:-4px;right:-4px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--grad);color:#fff;
+  font-size:.55rem;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* HERO */
+#hero{
+  display:grid;grid-template-columns:55% 45%;
+  min-height:92vh;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 70px;position:relative;overflow:hidden;
+}
+.hero-blob{
+  position:absolute;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.07) 0%,transparent 70%);
+  top:-100px;right:-100px;pointer-events:none;
+}
+.hero-blob2{
+  position:absolute;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(236,72,153,.06) 0%,transparent 70%);
+  bottom:-80px;left:-80px;pointer-events:none;
+}
+.hero-season{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.62rem;letter-spacing:3.5px;text-transform:uppercase;
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .6s .1s ease both;
+}
+.hero-season-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--grad);
+}
+.hero-season span{color:var(--purple);}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(3.2rem,5.5vw,6rem);
+  font-weight:400;line-height:1;
+  letter-spacing:-1px;color:var(--ink);
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .8s .2s ease both;
+}
+.hero-title em{
+  font-style:italic;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-desc{
+  font-size:.88rem;color:var(--muted);
+  line-height:1.85;max-width:380px;
+  margin-bottom:44px;font-weight:300;
+  opacity:0;animation:fadeUp .7s .35s ease both;
+}
+.hero-actions{display:flex;gap:14px;align-items:center;opacity:0;animation:fadeUp .7s .48s ease both;}
+.btn-grad{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--grad);color:#fff;
+  padding:14px 30px;border-radius:100px;
+  font-size:.68rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;
+}
+.btn-grad:hover{background:var(--grad2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(124,58,237,.25);}
+.btn-ghost{
+  font-size:.68rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  border-bottom:1px solid var(--border);padding-bottom:2px;
+  transition:all .2s;
+}
+.btn-ghost:hover{color:var(--purple);border-color:var(--purple);}
+.hero-stats{
+  display:flex;gap:40px;
+  margin-top:56px;padding-top:40px;
+  border-top:1px solid var(--border);
+  opacity:0;animation:fadeUp .7s .6s ease both;
+}
+.hero-stat-num{
+  font-family:var(--serif);
+  font-size:2rem;font-weight:400;display:block;line-height:1;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-stat-label{font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:5px;display:block;}
+
+/* Hero right */
+.hero-right{
+  display:grid;grid-template-rows:1fr 1fr;gap:3px;
+  background:var(--border);
+}
+.hero-panel{
+  background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.hero-panel-decor{
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 30%,rgba(124,58,237,.08) 0%,transparent 60%),
+             radial-gradient(circle at 30% 70%,rgba(236,72,153,.07) 0%,transparent 60%);
+}
+.hero-panel-text{
+  font-family:var(--serif);
+  font-size:clamp(2rem,4vw,4rem);
+  font-weight:400;font-style:italic;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;opacity:.2;
+}
+.hero-label{
+  position:absolute;bottom:20px;left:20px;
+  background:rgba(253,248,246,.95);
+  backdrop-filter:blur(8px);
+  padding:12px 18px;border-radius:8px;
+  border:1px solid var(--border);
+}
+.hero-label-name{font-size:.78rem;font-weight:500;color:var(--ink);}
+.hero-label-price{
+  font-size:.72rem;margin-top:3px;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;font-weight:500;
+}
+
+/* PRODUCTS */
+#products{padding:100px 60px;}
+.products-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;}
+.section-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.eyebrow-dash{width:18px;height:1.5px;background:var(--grad);}
+.eyebrow-text{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--purple);font-weight:500;}
+.section-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;letter-spacing:-.5px;color:var(--ink);}
+.section-title em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.view-all{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:all .2s;}
+.view-all:hover{color:var(--purple);border-color:var(--purple);}
+
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.product-card{cursor:pointer;}
+.product-img{
+  aspect-ratio:3/4;background:var(--bg2);border-radius:12px;
+  position:relative;overflow:hidden;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s;
+}
+.product-card:hover .product-img{transform:scale(1.02);}
+.product-img-text{font-family:var(--serif);font-size:1.8rem;font-weight:400;font-style:italic;color:var(--border);}
+.product-tag{
+  position:absolute;top:12px;left:12px;
+  font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;
+  font-weight:500;padding:5px 12px;border-radius:100px;
+}
+.tag-new{background:var(--grad);color:#fff;}
+.tag-sale{background:var(--ink);color:#fff;}
+.product-wish{
+  position:absolute;top:12px;right:12px;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(253,248,246,.9);backdrop-filter:blur(4px);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);opacity:0;transition:opacity .3s;
+}
+.product-card:hover .product-wish{opacity:1;}
+.product-wish:hover{color:var(--pink);}
+.product-add{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:14px 16px;
+  background:linear-gradient(to top,rgba(26,15,30,.65),transparent);
+  transform:translateY(100%);transition:transform .35s;
+}
+.product-card:hover .product-add{transform:translateY(0);}
+.btn-add{
+  width:100%;background:rgba(253,248,246,.95);
+  backdrop-filter:blur(8px);border:none;
+  padding:11px;border-radius:100px;
+  font-size:.65rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink);cursor:pointer;font-family:var(--sans);
+  transition:all .2s;
+}
+.btn-add:hover{background:var(--grad);color:#fff;}
+.product-brand{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.product-name{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.product-price{display:flex;align-items:center;gap:8px;}
+.price-current{font-size:.85rem;font-weight:500;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.price-old{font-size:.78rem;color:var(--muted);text-decoration:line-through;}
+
+/* BANNER */
+#banner{
+  margin:0 60px 100px;
+  border-radius:20px;overflow:hidden;
+  background:var(--grad);
+  padding:80px;
+  display:flex;align-items:center;justify-content:space-between;gap:40px;
+  position:relative;
+}
+#banner::before{
+  content:'AUREA';
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--serif);font-size:min(20vw,200px);font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.06);letter-spacing:-4px;white-space:nowrap;
+}
+.banner-title{font-family:var(--serif);font-size:clamp(2rem,4vw,4rem);font-weight:400;color:#fff;line-height:1.1;}
+.banner-title em{font-style:italic;opacity:.8;}
+.banner-right{display:flex;flex-direction:column;align-items:flex-end;gap:20px;flex-shrink:0;}
+.banner-desc{font-size:.82rem;color:rgba(255,255,255,.65);max-width:260px;line-height:1.8;text-align:right;font-weight:300;}
+.btn-white{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#fff;color:var(--purple);
+  padding:13px 26px;border-radius:100px;
+  font-size:.68rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;
+}
+.btn-white:hover{background:var(--bg);transform:translateY(-2px);}
+
+/* FEATURES */
+#features{padding:0 60px 100px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.feature{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:32px 28px;
+  transition:border-color .3s;
+}
+.feature:hover{border-color:rgba(124,58,237,.25);}
+.feature-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(236,72,153,.1));
+  display:flex;align-items:center;justify-content:center;
+  color:var(--purple);margin-bottom:16px;
+}
+.feature-name{font-size:.82rem;font-weight:500;color:var(--ink);margin-bottom:6px;}
+.feature-desc{font-size:.75rem;color:var(--muted);line-height:1.7;font-weight:300;}
+
+/* FOOTER */
+footer{background:var(--ink2);padding:60px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px;}
+.footer-logo{
+  font-family:var(--serif);font-size:1.6rem;font-weight:400;
+  letter-spacing:6px;text-transform:uppercase;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;text-decoration:none;display:block;margin-bottom:16px;
+}
+.footer-tagline{font-size:.78rem;color:rgba(253,248,246,.3);line-height:1.8;font-weight:300;}
+.footer-col-title{font-size:.58rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(253,248,246,.25);margin-bottom:16px;display:block;}
+.footer-col a{display:block;font-size:.78rem;color:rgba(253,248,246,.45);text-decoration:none;margin-bottom:10px;transition:color .2s;font-weight:300;}
+.footer-col a:hover{color:var(--pink);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:1px solid rgba(255,255,255,.05);}
+.footer-copy{font-size:.68rem;color:rgba(253,248,246,.2);letter-spacing:.5px;}
+.footer-copy a{color:var(--pink);text-decoration:none;}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.1s;}.reveal-d2{transition-delay:.2s;}.reveal-d3{transition-delay:.3s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+@media(max-width:768px){
+  .topbar,.nav-center{display:none;}
+  nav{padding:16px 20px;}
+  #hero{grid-template-columns:1fr;}
+  .hero-left{padding:60px 24px 48px;}
+  .hero-right{display:none;}
+  #products{padding:60px 20px;}
+  .products-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  #banner{margin:0 20px 60px;padding:48px 28px;flex-direction:column;}
+  .banner-right{align-items:flex-start;}
+  .banner-desc{text-align:left;}
+  #features{padding:0 20px 60px;grid-template-columns:1fr 1fr;}
+  footer{padding:40px 20px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;gap:12px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">Complimentary shipping on all orders — New SS25 Collection now live</div>
+
+<nav>
+  <div class="nav-center">
+    <a href="#">New In</a>
+    <a href="#">Collections</a>
+    <a href="#">Sale</a>
+  </div>
+  <a href="#" class="nav-logo">Aurea</a>
+  <div class="nav-right">
+    <button class="nav-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="nav-icon" style="position:relative;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-count">3</span>
+    </button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-blob"></div>
+    <div class="hero-blob2"></div>
+    <div class="hero-season">
+      <div class="hero-season-dot"></div>
+      <span>SS 2025 — New Collection</span>
+    </div>
+    <h1 class="hero-title">
+      Luxury<br>redefined<br>for the <em>bold.</em>
+    </h1>
+    <p class="hero-desc">For those who wear their confidence as effortlessly as their clothes. Crafted without compromise.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-grad">Shop Now
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#" class="btn-ghost">Explore Collection</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="hero-stat-num">340+</span><span class="hero-stat-label">Pieces</span></div>
+      <div><span class="hero-stat-num">18</span><span class="hero-stat-label">Countries</span></div>
+      <div><span class="hero-stat-num">4.9★</span><span class="hero-stat-label">Rating</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-panel">
+      <div class="hero-panel-decor"></div>
+      <span class="hero-panel-text">Silk</span>
+      <div class="hero-label">
+        <div class="hero-label-name">Draped Silk Gown</div>
+        <div class="hero-label-price">$680</div>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-panel-decor"></div>
+      <span class="hero-panel-text">Velvet</span>
+      <div class="hero-label">
+        <div class="hero-label-name">Velvet Blazer</div>
+        <div class="hero-label-price">$520</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-eyebrow reveal"><div class="eyebrow-dash"></div><span class="eyebrow-text">New Arrivals</span></div>
+      <h2 class="section-title reveal reveal-d1">Just <em>arrived.</em></h2>
+    </div>
+    <a href="#" class="view-all reveal reveal-d2">View All →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card reveal">
+      <div class="product-img">
+        <span class="product-img-text">Cashmere</span>
+        <span class="product-tag tag-new">New</span>
+        <button class="product-wish"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <div class="product-add"><button class="btn-add">Add to Bag</button></div>
+      </div>
+      <div class="product-brand">Aurea</div>
+      <div class="product-name">Oversized Cashmere Coat</div>
+      <div class="product-price"><span class="price-current">$890</span></div>
+    </div>
+    <div class="product-card reveal reveal-d1">
+      <div class="product-img">
+        <span class="product-img-text">Satin</span>
+        <button class="product-wish"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <div class="product-add"><button class="btn-add">Add to Bag</button></div>
+      </div>
+      <div class="product-brand">Aurea</div>
+      <div class="product-name">Bias-Cut Satin Midi</div>
+      <div class="product-price"><span class="price-current">$420</span></div>
+    </div>
+    <div class="product-card reveal reveal-d2">
+      <div class="product-img">
+        <span class="product-img-text">Leather</span>
+        <span class="product-tag tag-sale">−25%</span>
+        <button class="product-wish"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <div class="product-add"><button class="btn-add">Add to Bag</button></div>
+      </div>
+      <div class="product-brand">Aurea</div>
+      <div class="product-name">Mini Leather Crossbody</div>
+      <div class="product-price"><span class="price-current">$337</span><span class="price-old">$450</span></div>
+    </div>
+    <div class="product-card reveal reveal-d3">
+      <div class="product-img">
+        <span class="product-img-text">Velvet</span>
+        <span class="product-tag tag-new">New</span>
+        <button class="product-wish"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <div class="product-add"><button class="btn-add">Add to Bag</button></div>
+      </div>
+      <div class="product-brand">Aurea</div>
+      <div class="product-name">Velvet Wide-Leg Trousers</div>
+      <div class="product-price"><span class="price-current">$310</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="banner">
+  <h2 class="banner-title reveal">Crafted for<br>the <em>exceptional.</em></h2>
+  <div class="banner-right reveal reveal-d1">
+    <p class="banner-desc">Every piece is produced in limited quantities using the finest natural materials.</p>
+    <a href="#" class="btn-white">Our Philosophy
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<section id="features">
+  <div class="feature reveal">
+    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+    <div class="feature-name">Free Shipping</div>
+    <div class="feature-desc">Complimentary worldwide delivery on all orders.</div>
+  </div>
+  <div class="feature reveal reveal-d1">
+    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="feature-name">Authenticity Guaranteed</div>
+    <div class="feature-desc">Every piece verified and certified before dispatch.</div>
+  </div>
+  <div class="feature reveal reveal-d2">
+    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+    <div class="feature-name">Easy Returns</div>
+    <div class="feature-desc">30-day hassle-free returns. No questions asked.</div>
+  </div>
+  <div class="feature reveal reveal-d3">
+    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <div class="feature-name">Consciously Made</div>
+    <div class="feature-desc">Natural materials, limited runs, zero waste ethos.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#" class="footer-logo">Aurea</a>
+      <p class="footer-tagline">Luxury redefined for the bold.<br>Crafted without compromise.</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Shop</span>
+      <a href="#">New In</a><a href="#">Collections</a><a href="#">Sale</a><a href="#">Gift Cards</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Help</span>
+      <a href="#">Sizing Guide</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Company</span>
+      <a href="#">Our Story</a><a href="#">Sustainability</a><a href="#">Careers</a><a href="#">Press</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Aurea. All rights reserved.</p>
+    <p class="footer-copy">Designed & built by <a href="https://resumeleo.rqvg2s74g5.workers.dev">Leo</a></p>
+  </div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
